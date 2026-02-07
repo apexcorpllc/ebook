@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Author</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<script src="js/books.js"></script>
+<script>
+const author = new URLSearchParams(location.search).get("name");
+const authorBooks = books.filter(b => b.author === author);
+document.body.innerHTML = `
+<div class="p-10 max-w-3xl mx-auto">
+<h1 class="text-3xl font-bold mb-6">${author}</h1>
+${authorBooks.map(b => `<p><a href="book.html?id=${b.id}" class="text-blue-600">${b.title}</a></p>`).join("")}
+</div>`;
+</script>
+</body>
+</html>

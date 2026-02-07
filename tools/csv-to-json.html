@@ -1,0 +1,21 @@
+<textarea id="csv" rows="10" cols="80"></textarea>
+<button onclick="convert()">Convert</button>
+<pre id="output"></pre>
+<script>
+function convert() {
+  const rows = csv.value.split("\n").slice(1);
+  const books = rows.map((r, i) => {
+    const [title,author,genre,cover,ebookA,ebookAp,ebookB,printA,printL] = r.split(",");
+    return {
+      id: i+1,
+      title, author, genre,
+      cover,
+      formats: {
+        ebook: { amazon: ebookA, apple: ebookAp, barnes: ebookB },
+        print: { amazon: printA, lulu: printL }
+      }
+    };
+  });
+  output.textContent = JSON.stringify(books, null, 2);
+}
+</script>

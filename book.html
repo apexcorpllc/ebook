@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<script src="js/books.js"></script>
+<script>
+const id = new URLSearchParams(location.search).get("id");
+const book = books.find(b => b.id == id);
+document.body.innerHTML = `
+<div class="p-10 max-w-3xl mx-auto">
+  <img src="${book.cover}" class="h-64 mx-auto mb-6">
+  <h1 class="text-3xl font-bold">${book.title}</h1>
+  <p class="mb-4">by <a href="author.html?name=${encodeURIComponent(book.author)}" class="text-blue-600">${book.author}</a></p>
+  <p class="mb-6">${book.description}</p>
+  <h3 class="font-bold mb-2">Ebook</h3>
+  ${Object.entries(book.formats.ebook || {}).map(([k,v])=>`<a href="${v}" class="block text-blue-600">${k}</a>`).join("")}
+  <h3 class="font-bold mt-4 mb-2">Print</h3>
+  ${Object.entries(book.formats.print || {}).map(([k,v])=>`<a href="${v}" class="block text-blue-600">${k}</a>`).join("")}
+</div>`;
+</script>
+</body>
+</html>
